@@ -31,11 +31,20 @@ const PrivacyHero = () => {
             Take control of your digital privacy with secure search engines, educational resources, and privacy tools.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-elegant">
+            <Button 
+              size="lg" 
+              className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-elegant"
+              onClick={() => window.open('https://duckduckgo.com', '_blank', 'noopener,noreferrer')}
+            >
               <Search className="w-5 h-5 mr-2" />
               Start Private Search
             </Button>
-            <Button size="lg" variant="secondary" className="bg-white/10 hover:bg-white/20 text-white border-white/30">
+            <Button 
+              size="lg" 
+              variant="secondary" 
+              className="bg-white/10 hover:bg-white/20 text-white border-white/30"
+              onClick={() => document.getElementById('privacy-tips')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <Eye className="w-5 h-5 mr-2" />
               Learn Privacy Tips
             </Button>
@@ -56,15 +65,13 @@ const PrivacyHero = () => {
                   </div>
                   <h3 className="text-xl font-semibold mb-2">{engine.name}</h3>
                   <p className="text-muted-foreground mb-4">{engine.description}</p>
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-primary/30 hover:bg-primary/10 hover:border-primary/50"
-                    asChild
-                  >
-                    <a href={engine.url} target="_blank" rel="noopener noreferrer">
-                      Search Now
-                    </a>
-                  </Button>
+                   <Button 
+                     variant="outline" 
+                     className="w-full border-primary/30 hover:bg-primary/10 hover:border-primary/50"
+                     onClick={() => window.open(engine.url, '_blank', 'noopener,noreferrer')}
+                   >
+                     Search Now
+                   </Button>
                 </div>
               </Card>
             ))}
@@ -73,7 +80,7 @@ const PrivacyHero = () => {
       </section>
 
       {/* Privacy Features */}
-      <section className="py-16 px-6 bg-privacy-surface/50">
+      <section id="privacy-tips" className="py-16 px-6 bg-privacy-surface/50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-12">Why Privacy Matters</h2>
           <div className="grid md:grid-cols-3 gap-8">
