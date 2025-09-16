@@ -2,14 +2,43 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Shield, Search, Eye, Lock } from "lucide-react";
 import heroImage from "@/assets/privacy-hero.jpg";
+import { useState } from "react";
 
 const PrivacyHero = () => {
+  const [showSearch, setShowSearch] = useState(false);
+  
   const searchEngines = [
     { name: "DuckDuckGo", url: "https://duckduckgo.com", description: "No tracking, no ads" },
     { name: "Startpage", url: "https://www.startpage.com", description: "Google results, private" },
     { name: "Searx", url: "https://searx.space", description: "Open source metasearch" },
     { name: "Brave Search", url: "https://search.brave.com", description: "Independent index" }
   ];
+
+  if (showSearch) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="flex items-center justify-between p-4 bg-privacy-surface border-b border-border">
+          <div className="flex items-center gap-2">
+            <Shield className="w-6 h-6 text-primary" />
+            <span className="text-xl font-bold">Anonymous.site</span>
+          </div>
+          <Button 
+            variant="outline" 
+            onClick={() => setShowSearch(false)}
+            className="border-primary/30 hover:bg-primary/10"
+          >
+            Back to Home
+          </Button>
+        </div>
+        <iframe 
+          src="https://duckduckgo.com" 
+          className="w-full h-[calc(100vh-80px)] border-none"
+          title="Anonymous Search"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -24,20 +53,20 @@ const PrivacyHero = () => {
             <Shield className="w-10 h-10 text-primary" />
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-            Privacy-First
-            <span className="block text-primary">Web Browsing</span>
+            Anonymous
+            <span className="block text-primary">Browsing</span>
           </h1>
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Take control of your digital privacy with secure search engines, educational resources, and privacy tools.
+            Browse the web completely anonymously with secure search engines, privacy tools, and anonymous browsing resources.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
               className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-elegant"
-              onClick={() => window.open('https://duckduckgo.com', '_blank', 'noopener,noreferrer')}
+              onClick={() => setShowSearch(true)}
             >
               <Search className="w-5 h-5 mr-2" />
-              Start Private Search
+              Start Anonymous Search
             </Button>
             <Button 
               size="lg" 
@@ -68,9 +97,9 @@ const PrivacyHero = () => {
                    <Button 
                      variant="outline" 
                      className="w-full border-primary/30 hover:bg-primary/10 hover:border-primary/50"
-                     onClick={() => window.open(engine.url, '_blank', 'noopener,noreferrer')}
+                     onClick={() => setShowSearch(true)}
                    >
-                     Search Now
+                     Search Anonymously
                    </Button>
                 </div>
               </Card>
