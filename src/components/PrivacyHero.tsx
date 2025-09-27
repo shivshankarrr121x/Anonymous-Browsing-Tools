@@ -15,9 +15,9 @@ const PrivacyHero = () => {
     { name: "Brave Search", url: "https://search.brave.com", description: "Independent index" }
   ];
 
-  const handleSearch = (engine = searchEngines[0]) => {
+  const handleSearch = () => {
     if (searchQuery.trim()) {
-      window.open(`${engine.url}${encodeURIComponent(searchQuery)}`, '_blank', 'noopener,noreferrer');
+      window.open(`https://duckduckgo.com/?q=${encodeURIComponent(searchQuery)}`, '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -72,11 +72,10 @@ const PrivacyHero = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => handleSearch(engine)}
-                    disabled={!searchQuery.trim()}
+                    onClick={() => window.open(engine.url, '_blank', 'noopener,noreferrer')}
                     className="border-primary/30 hover:bg-primary/10"
                   >
-                    Search
+                    Open {engine.name}
                   </Button>
                 </div>
               </Card>
