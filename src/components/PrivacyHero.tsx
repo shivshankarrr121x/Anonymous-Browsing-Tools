@@ -9,10 +9,10 @@ const PrivacyHero = () => {
   const [searchQuery, setSearchQuery] = useState("");
   
   const searchEngines = [
-    { name: "DuckDuckGo", url: "https://duckduckgo.com/?q=", description: "No tracking, no ads" },
-    { name: "Startpage", url: "https://www.startpage.com/sp/search?query=", description: "Google results, private" },
-    { name: "Searx", url: "https://searx.space/?q=", description: "Open source metasearch" },
-    { name: "Brave Search", url: "https://search.brave.com/search?q=", description: "Independent index" }
+    { name: "DuckDuckGo", url: "https://duckduckgo.com", description: "No tracking, no ads" },
+    { name: "Startpage", url: "https://www.startpage.com", description: "Google results, private" },
+    { name: "Searx", url: "https://searx.space", description: "Open source metasearch" },
+    { name: "Brave Search", url: "https://search.brave.com", description: "Independent index" }
   ];
 
   const handleSearch = (engine = searchEngines[0]) => {
@@ -144,7 +144,7 @@ const PrivacyHero = () => {
                    <Button 
                      variant="outline" 
                      className="w-full border-primary/30 hover:bg-primary/10 hover:border-primary/50"
-                     onClick={() => setShowSearch(true)}
+                     onClick={() => window.open(engine.url, '_blank', 'noopener,noreferrer')}
                    >
                      Search Anonymously
                    </Button>
