@@ -6,13 +6,20 @@ import { useState } from "react";
 
 const PrivacyHero = () => {
   const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   
   const searchEngines = [
-    { name: "DuckDuckGo", url: "https://duckduckgo.com", description: "No tracking, no ads" },
-    { name: "Startpage", url: "https://www.startpage.com", description: "Google results, private" },
-    { name: "Searx", url: "https://searx.space", description: "Open source metasearch" },
-    { name: "Brave Search", url: "https://search.brave.com", description: "Independent index" }
+    { name: "DuckDuckGo", url: "https://duckduckgo.com/?q=", description: "No tracking, no ads" },
+    { name: "Startpage", url: "https://www.startpage.com/sp/search?query=", description: "Google results, private" },
+    { name: "Searx", url: "https://searx.space/?q=", description: "Open source metasearch" },
+    { name: "Brave Search", url: "https://search.brave.com/search?q=", description: "Independent index" }
   ];
+
+  const handleSearch = (engine = searchEngines[0]) => {
+    if (searchQuery.trim()) {
+      window.open(`${engine.url}${encodeURIComponent(searchQuery)}`, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   if (showSearch) {
     return (
@@ -30,12 +37,52 @@ const PrivacyHero = () => {
             Back to Home
           </Button>
         </div>
-        <iframe 
-          src="https://duckduckgo.com" 
-          className="w-full h-[calc(100vh-80px)] border-none"
-          title="Anonymous Search"
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-        />
+        
+        <div className="max-w-4xl mx-auto p-8">
+          <div className="text-center mb-8">
+            <div className="mb-6 inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full shadow-glow">
+              <Search className="w-8 h-8 text-primary" />
+            </div>
+            <h1 className="text-3xl font-bold mb-4">Anonymous Search</h1>
+            <p className="text-muted-foreground">Search the web privately with no tracking</p>
+          </div>
+
+          <div className="flex gap-3 mb-8">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+              placeholder="Enter your search query..."
+              className="flex-1 px-4 py-3 bg-privacy-surface border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+            />
+            <Button onClick={() => handleSearch()} className="px-6 py-3 bg-primary hover:bg-primary/90">
+              <Search className="w-5 h-5" />
+            </Button>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {searchEngines.map((engine) => (
+              <Card key={engine.name} className="p-4 bg-gradient-card border-border/50 hover:shadow-elegant transition-all duration-300">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-semibold mb-1">{engine.name}</h3>
+                    <p className="text-sm text-muted-foreground">{engine.description}</p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleSearch(engine)}
+                    disabled={!searchQuery.trim()}
+                    className="border-primary/30 hover:bg-primary/10"
+                  >
+                    Search
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
