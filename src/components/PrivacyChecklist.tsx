@@ -21,7 +21,7 @@ const PrivacyChecklist = () => {
     {
       id: 3,
       title: "Enable two-factor authentication",
-      description: "Add 2FA to all important accounts for extra security",
+      description: "Add 2FA (2 Factor Authentication) to all important accounts for extra security",
       priority: "high"
     },
     {
@@ -51,7 +51,7 @@ const PrivacyChecklist = () => {
     {
       id: 8,
       title: "Review privacy settings",
-      description: "Check privacy settings on social media and online accounts",
+      description: "Check privacy settings on social media and all your online accounts",
       priority: "medium"
     },
     {
